@@ -9,21 +9,17 @@ def get_trees(field, right, down):
 	# expand field to what we'll need
 	nrows = len(field.index)
 	ncols = len(field['field'][0])
-
-	cols_needed = np.ceil((right/down)*nrows) 
-	copies_needed = int(np.ceil(cols_needed / ncols)) 
-
-	field['field_expanded'] = [row*copies_needed for row in field['field']]
 	
 	# find what symbol is at the important place
 	field['symbol_at_pos'] = '0'
 	for i in range(0, len(field.index), down):
 		
-		# only count if have integer index
-		str_index = int(right/down*i)
+		# get string index with pbc (thanks, mayk)
+		str_index = right/down*i
+		str_index_wrapped = int(str_index % ncols)
 		
 		# get symbol		
-		field['symbol_at_pos'][i] = field['field_expanded'][i][int(str_index)]
+		field['symbol_at_pos'][i] = field['field'][i][str_index_wrapped]
 
 	# how many trees are there
 	return np.sum(field['symbol_at_pos'] == '#')

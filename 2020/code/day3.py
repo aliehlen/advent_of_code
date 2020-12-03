@@ -20,9 +20,7 @@ def get_trees(field, right, down):
 	for i in range(0, len(field.index), down):
 		
 		# only count if have integer index
-		str_index = right/down*i
-		if np.floor(str_index) != str_index:
-			continue
+		str_index = int(right/down*i)
 		
 		# get symbol		
 		field['symbol_at_pos'][i] = field['field_expanded'][i][int(str_index)]

@@ -1,5 +1,3 @@
-import pandas as pd
-
 def run_bootcode(cmds, vals):
 	
 	here_before = ['no' for i in range(len(cmds))]
